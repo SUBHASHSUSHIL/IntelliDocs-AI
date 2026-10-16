@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "IntelliDocs_AI.Server.Controllers.HealthController",
+    "Method": "Get",
+    "RelativePath": "api/Health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "IntelliDocs_AI.Server.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

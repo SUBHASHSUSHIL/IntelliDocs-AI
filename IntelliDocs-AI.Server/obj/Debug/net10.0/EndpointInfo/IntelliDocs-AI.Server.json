@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [

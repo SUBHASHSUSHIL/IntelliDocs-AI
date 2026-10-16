@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -47,6 +51,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "HealthController.cs",
+              "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\HealthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HealthController.cs",
+              "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\HealthController.cs",
+              "RelativeToolTip": "Controllers\\HealthController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAwwA8AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-16T19:20:28.685Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
@@ -59,20 +76,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IntelliDocs-AI.Server",
+              "DocumentIndex": 2,
+              "Title": "IntelliDocs-AI.Server.csproj",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI.Server.csproj",
               "RelativeDocumentMoniker": "IntelliDocs-AI.Server.csproj",
               "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI.Server.csproj",
               "RelativeToolTip": "IntelliDocs-AI.Server.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-16T18:00:10.356Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T18:00:10.356Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -80,12 +96,11 @@
               "RelativeToolTip": "Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-10-16T17:56:35.736Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T17:56:35.736Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -93,8 +108,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T17:55:23.991Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T17:55:23.991Z"
             }
           ]
         }
