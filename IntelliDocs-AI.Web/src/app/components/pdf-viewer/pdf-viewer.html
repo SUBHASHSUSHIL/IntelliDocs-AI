@@ -1,0 +1,87 @@
+<section class="pdf-panel" [class.collapsed]="collapsed()">
+  <!-- Panel header -->
+  <div class="panel-header">
+    <span class="panel-label">{{ panelLabel() }}</span>
+    <button class="collapse-panel-btn" (click)="toggleCollapse()" [title]="collapsed() ? 'Expand' : 'Collapse'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        @if (!collapsed()) {
+          <polyline points="15 18 9 12 15 6"/>
+          <polyline points="9 18 3 12 9 6"/>
+        } @else {
+          <polyline points="9 18 15 12 9 6"/>
+          <polyline points="15 18 21 12 15 6"/>
+        }
+      </svg>
+    </button>
+  </div>
+
+  @if (!collapsed()) {
+    <!-- PDF Content -->
+    <div class="pdf-content">
+      <div class="pdf-page">
+        <h2>Getting started</h2>
+        <p class="subtitle">Learn more about your device and start using it.</p>
+
+        <h3>Setting up your device</h3>
+
+        <h4>Insert SIM card</h4>
+        <ol>
+          <li>Insert the SIM Tray Ejector into the small hole on the SIM card holder. Press the ejector firmly into the hole to push the SIM card tray out.</li>
+          <li>Slowly pull the SIM card tray out of the tray slot.</li>
+          <li>Place the SIM card into the SIM card tray.</li>
+          <li>Plug the SIM card tray back into your device.</li>
+        </ol>
+        <p class="note">* Use the original Nano-SIM card. Non-original cards may cause damage.</p>
+
+        <h3>Booting up your OnePlus device</h3>
+        <p>Press and hold the power button for a few seconds to boot up the phone. If your phone does not power on, you may need to charge it.</p>
+
+        <h4>Setup Wizard</h4>
+        <p>When you first boot up the phone (or after a factory reset), the <mark>Setup Wizard</mark> lets you customise all features, including language, software buttons, gestures, fingerprint unlock, and other features. If you want to change these later, you can do so after setting up the phone in the Settings app.</p>
+
+        <h3>Battery and charging</h3>
+        <p><strong>You will need to charge the phone when you first get it or if you have not used it for a long time.</strong></p>
+
+        <h4>Safety Information</h4>
+        <ul>
+          <li>To ensure your safety and avoid damaging the device, only use the official charger and USB cable.</li>
+          <li>OnePlus device supports the USB Type-C cable.</li>
+          <li>Unplug the charger after you finish charging to avoid wasting electricity.</li>
+          <li>Do not place anything on your phone while it is charging.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PDF Controls -->
+    <div class="pdf-controls">
+      <div class="zoom-controls">
+        <button class="ctrl-btn" (click)="zoomOut()" aria-label="Zoom out" [disabled]="zoom() <= 50">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+        <span class="zoom-level">{{ zoom() }}%</span>
+        <button class="ctrl-btn" (click)="zoomIn()" aria-label="Zoom in" [disabled]="zoom() >= 200">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="page-controls">
+        <button class="ctrl-btn" (click)="prevPage()" [disabled]="currentPage() <= 1" aria-label="Previous page">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <span class="page-info">{{ currentPage() }} / {{ totalPages() }}</span>
+        <button class="ctrl-btn" (click)="nextPage()" [disabled]="currentPage() >= totalPages()" aria-label="Next page">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  }
+</section>

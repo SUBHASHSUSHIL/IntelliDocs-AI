@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { SidebarComponent } from './components/sidebar/sidebar';
+import { TopHeaderComponent } from './components/top-header/top-header';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer';
+import { ChatPanelComponent } from './components/chat-panel/chat-panel';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [
+    SidebarComponent,
+    TopHeaderComponent,
+    PdfViewerComponent,
+    ChatPanelComponent,
+  ],
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('IntelliDocs-AI.Web');
-}
+export class App {}
