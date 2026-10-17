@@ -1,68 +1,138 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IntelliDocs_AI.Server.Models;
+using IntelliDocs_AI.Server.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace IntelliDocs_AI.Server.Controllers
 {
-    [Route("api/documents")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Produces("application/json")]
     public class DocumentsController : ControllerBase
     {
-        private readonly IWebHostEnvironment _env;
-        public DocumentsController(IWebHostEnvironment env) => _env = env;
+        private readonly IDocumentStorageService _storage;
+        private readonly ILogger<DocumentsController> _logger;
 
-        [HttpPost("uploads")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken)
+        public DocumentsController(IDocumentStorageService storage, ILogger<DocumentsController> logger)
         {
-            if (file == null || file.Length == 0)
-                return BadRequest("Please upload a PDF file.");
-
-            if (!string.Equals(Path.GetExtension(file.FileName), ".pdf", StringComparison.OrdinalIgnoreCase))
-                return BadRequest("Only PDF files are allowed.");
-
-            // Basic header check for %PDF
-            using (var headerStream = file.OpenReadStream())
-            {
-                var header = new byte[4];
-                var read = await headerStream.ReadAsync(header, 0, header.Length, cancellationToken);
-                if (read < 4 || Encoding.ASCII.GetString(header) != "%PDF")
-                    return BadRequest("File is not a valid PDF.");
-            }
-
-            // Sanitize filename and create target path
-            var uploadsDir = Path.Combine(_env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), "uploads");
-            Directory.CreateDirectory(uploadsDir);
-
-            var safeFileName = Path.GetFileName(file.FileName); // removes directory parts
-            safeFileName = string.Concat(safeFileName.Split(Path.GetInvalidFileNameChars()));
-            var uniqueName = $"{Path.GetFileNameWithoutExtension(safeFileName)}_{Guid.NewGuid():N}{Path.GetExtension(safeFileName)}";
-            var filePath = Path.Combine(uploadsDir, uniqueName);
-
-            // Save file
-            await using (var fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-            {
-                await file.CopyToAsync(fs, cancellationToken);
-            }
-
-            return Ok(new
-            {
-                message = "PDF received successfully",
-                fileName = uniqueName,
-                size = file.Length,
-                url = $"/uploads/{uniqueName}"
-            });
+            _storage = storage;
+            _logger = logger;
         }
 
-        [HttpGet("uploads/{fileName}")]
-        public IActionResult GetUploadedFile(string fileName)
+        // ─── GET api/documents ───────────────────────────────────────────────────
+        /// <summary>Returns metadata for all uploaded documents.</summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<DocumentDto>), StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<DocumentDto>> GetAll()
         {
-            var uploadsDir = Path.Combine(_env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), "uploads");
-            var filePath = Path.Combine(uploadsDir, fileName);
-            if (!System.IO.File.Exists(filePath))
-                return NotFound("File not found.");
-            var contentType = "application/pdf"; // Assuming all files are PDFs
-            return PhysicalFile(filePath, contentType, fileName);
+            var docs = _storage.GetAll().Select(d => ToDto(d));
+            return Ok(docs);
         }
+
+        // ─── GET api/documents/{id} ───────────────────────────────────────────────
+        /// <summary>Returns metadata for a single document.</summary>
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(DocumentDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
+        {
+            var result = await _storage.GetAsync(id, ct);
+            if (result is null)
+                return NotFound(new { message = $"Document {id} not found." });
+
+            var (_, doc) = result.Value;
+            return Ok(ToDto(doc));
+        }
+
+        // ─── GET api/documents/{id}/download ────────────────────────────────────
+        /// <summary>Downloads the raw file for a document.</summary>
+        [HttpGet("{id:guid}/download")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Download(Guid id, CancellationToken ct)
+        {
+            var result = await _storage.GetAsync(id, ct);
+            if (result is null)
+                return NotFound(new { message = $"Document {id} not found." });
+
+            var (stream, doc) = result.Value;
+            return File(stream, doc.ContentType, doc.OriginalFileName);
+        }
+
+        // ─── POST api/documents/upload ───────────────────────────────────────────
+        /// <summary>Uploads a document (PDF, Word, Excel, PowerPoint, TXT). Max 50 MB.</summary>
+        [HttpPost("upload")]
+        [RequestSizeLimit(52_428_800)] // 50 MB
+        [ProducesResponseType(typeof(UploadDocumentResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(UploadDocumentResponse), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UploadDocumentResponse>> Upload(
+            IFormFile file,
+            CancellationToken ct)
+        {
+            if (file is null || file.Length == 0)
+                return BadRequest(new UploadDocumentResponse
+                {
+                    Success = false,
+                    Message = "No file was provided or the file is empty.",
+                });
+
+            try
+            {
+                var doc = await _storage.SaveAsync(file, ct);
+                var dto = ToDto(doc);
+
+                return CreatedAtAction(
+                    nameof(GetById),
+                    new { id = doc.Id },
+                    new UploadDocumentResponse
+                    {
+                        Success = true,
+                        Message = "Document uploaded successfully.",
+                        Document = dto,
+                    });
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Upload rejected: {Message}", ex.Message);
+                return BadRequest(new UploadDocumentResponse
+                {
+                    Success = false,
+                    Message = ex.Message,
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error during upload.");
+                return StatusCode(StatusCodes.Status500InternalServerError, new UploadDocumentResponse
+                {
+                    Success = false,
+                    Message = "An unexpected error occurred. Please try again.",
+                });
+            }
+        }
+
+        // ─── DELETE api/documents/{id} ────────────────────────────────────────────
+        /// <summary>Deletes a document by id.</summary>
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Delete(Guid id)
+        {
+            var deleted = _storage.Delete(id);
+            if (!deleted)
+                return NotFound(new { message = $"Document {id} not found." });
+
+            return NoContent();
+        }
+
+        // ─── helpers ─────────────────────────────────────────────────────────────
+        private DocumentDto ToDto(Document doc) => new()
+        {
+            Id = doc.Id,
+            FileName = doc.OriginalFileName,
+            ContentType = doc.ContentType,
+            SizeBytes = doc.SizeBytes,
+            UploadedAt = doc.UploadedAt,
+            DownloadUrl = Url.Action(nameof(Download), "Documents", new { id = doc.Id }, Request.Scheme) ?? string.Empty,
+        };
     }
 }

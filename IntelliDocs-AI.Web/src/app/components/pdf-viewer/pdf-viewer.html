@@ -1,59 +1,184 @@
 <section class="pdf-panel" [class.collapsed]="collapsed()">
+
   <!-- Panel header -->
   <div class="panel-header">
-    <span class="panel-label">{{ panelLabel() }}</span>
-    <button class="collapse-panel-btn" (click)="toggleCollapse()" [title]="collapsed() ? 'Expand' : 'Collapse'">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        @if (!collapsed()) {
-          <polyline points="15 18 9 12 15 6"/>
-          <polyline points="9 18 3 12 9 6"/>
-        } @else {
-          <polyline points="9 18 15 12 9 6"/>
-          <polyline points="15 18 21 12 15 6"/>
-        }
-      </svg>
-    </button>
+    <span class="panel-label" [title]="panelLabel()">{{ panelLabel() }}</span>
+    <div class="panel-header-actions">
+      @if (activeDocument()) {
+        <button class="hdr-btn" (click)="downloadActive()" title="Download document" aria-label="Download document">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </button>
+      }
+      <button class="collapse-panel-btn" (click)="toggleCollapse()"
+        [title]="collapsed() ? 'Expand' : 'Collapse'" aria-label="Toggle panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          @if (!collapsed()) {
+            <polyline points="15 18 9 12 15 6"/>
+            <polyline points="9 18 3 12 9 6"/>
+          } @else {
+            <polyline points="9 18 15 12 9 6"/>
+            <polyline points="15 18 21 12 15 6"/>
+          }
+        </svg>
+      </button>
+    </div>
   </div>
 
   @if (!collapsed()) {
-    <!-- PDF Content -->
-    <div class="pdf-content">
-      <div class="pdf-page">
-        <h2>Getting started</h2>
-        <p class="subtitle">Learn more about your device and start using it.</p>
 
-        <h3>Setting up your device</h3>
-
-        <h4>Insert SIM card</h4>
-        <ol>
-          <li>Insert the SIM Tray Ejector into the small hole on the SIM card holder. Press the ejector firmly into the hole to push the SIM card tray out.</li>
-          <li>Slowly pull the SIM card tray out of the tray slot.</li>
-          <li>Place the SIM card into the SIM card tray.</li>
-          <li>Plug the SIM card tray back into your device.</li>
-        </ol>
-        <p class="note">* Use the original Nano-SIM card. Non-original cards may cause damage.</p>
-
-        <h3>Booting up your OnePlus device</h3>
-        <p>Press and hold the power button for a few seconds to boot up the phone. If your phone does not power on, you may need to charge it.</p>
-
-        <h4>Setup Wizard</h4>
-        <p>When you first boot up the phone (or after a factory reset), the <mark>Setup Wizard</mark> lets you customise all features, including language, software buttons, gestures, fingerprint unlock, and other features. If you want to change these later, you can do so after setting up the phone in the Settings app.</p>
-
-        <h3>Battery and charging</h3>
-        <p><strong>You will need to charge the phone when you first get it or if you have not used it for a long time.</strong></p>
-
-        <h4>Safety Information</h4>
-        <ul>
-          <li>To ensure your safety and avoid damaging the device, only use the official charger and USB cable.</li>
-          <li>OnePlus device supports the USB Type-C cable.</li>
-          <li>Unplug the charger after you finish charging to avoid wasting electricity.</li>
-          <li>Do not place anything on your phone while it is charging.</li>
-        </ul>
+    <!-- Upload status banner -->
+    @if (uploadStatus() !== 'idle') {
+      <div class="upload-banner" [class.success]="uploadStatus() === 'success'"
+        [class.error]="uploadStatus() === 'error'" [class.uploading]="uploadStatus() === 'uploading'">
+        @if (uploadStatus() === 'uploading') {
+          <div class="upload-progress-wrap">
+            <svg class="spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <span>Uploading… {{ uploadProgress() }}%</span>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" [style.width.%]="uploadProgress()"></div>
+            </div>
+          </div>
+        }
+        @if (uploadStatus() === 'success') {
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>{{ uploadMessage() }}</span>
+          <button class="banner-dismiss" (click)="dismissMessage()" aria-label="Dismiss">✕</button>
+        }
+        @if (uploadStatus() === 'error') {
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>{{ uploadMessage() }}</span>
+          <button class="banner-dismiss" (click)="dismissMessage()" aria-label="Dismiss">✕</button>
+        }
       </div>
+    }
+
+    <!-- PDF Content -->
+    <div class="pdf-content"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave()"
+      (drop)="onDrop($event)">
+
+      <!-- Drag overlay -->
+      @if (isDragOver()) {
+        <div class="drag-overlay" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>Drop file to upload</span>
+        </div>
+      }
+
+      <!-- Upload area (when no document active) -->
+      @if (!activeDocument()) {
+        <div class="upload-area" (click)="openFilePicker()" role="button" tabindex="0"
+          (keydown.enter)="openFilePicker()" aria-label="Upload document">
+          <div class="upload-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="11" x2="12" y2="17"/>
+              <line x1="9" y1="14" x2="15" y2="14"/>
+            </svg>
+          </div>
+          <p class="upload-title">Upload a document</p>
+          <p class="upload-hint">Click or drag & drop a PDF, Word, Excel, or TXT file (max 50 MB)</p>
+          <span class="upload-btn-label">Browse files</span>
+        </div>
+
+        <!-- Previously uploaded documents -->
+        @if (documents().length > 0) {
+          <div class="doc-list">
+            <div class="doc-list-header">
+              <span>Uploaded documents</span>
+            </div>
+            @for (doc of documents(); track doc.id) {
+              <button class="doc-list-item" (click)="selectDocument(doc)"
+                [class.active]="activeDocument()?.id === doc.id">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <span class="doc-name">{{ doc.fileName }}</span>
+                <span class="doc-size">{{ formatSize(doc.sizeBytes) }}</span>
+              </button>
+            }
+          </div>
+        }
+
+      } @else {
+        <!-- Uploaded document viewer placeholder -->
+        <div class="pdf-page">
+          <div class="doc-active-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            <div>
+              <p class="doc-active-name">{{ activeDocument()!.fileName }}</p>
+              <p class="doc-active-meta">
+                {{ formatSize(activeDocument()!.sizeBytes) }} ·
+                {{ activeDocument()!.uploadedAt | date:'MMM d, yyyy, h:mm a' }}
+              </p>
+            </div>
+          </div>
+
+          <h2>Getting started</h2>
+          <p class="subtitle">Learn more about your device and start using it.</p>
+
+          <h3>Setting up your device</h3>
+          <h4>Insert SIM card</h4>
+          <ol>
+            <li>Insert the SIM Tray Ejector into the small hole on the SIM card holder. Press the ejector firmly into the hole to push the SIM card tray out.</li>
+            <li>Slowly pull the SIM card tray out of the tray slot.</li>
+            <li>Place the SIM card into the SIM card tray.</li>
+            <li>Plug the SIM card tray back into your device.</li>
+          </ol>
+          <p class="note">* Use the original Nano-SIM card. Non-original cards may cause damage.</p>
+
+          <h3>Booting up your OnePlus device</h3>
+          <p>Press and hold the power button for a few seconds to boot up the phone.</p>
+
+          <h4>Setup Wizard</h4>
+          <p>When you first boot up the phone (or after a factory reset), the <mark>Setup Wizard</mark> lets you customise all features, including language, software buttons, gestures, fingerprint unlock, and other features.</p>
+
+          <h3>Battery and charging</h3>
+          <p><strong>You will need to charge the phone when you first get it or if you have not used it for a long time.</strong></p>
+          <h4>Safety Information</h4>
+          <ul>
+            <li>Only use the official charger and USB cable.</li>
+            <li>OnePlus device supports the USB Type-C cable.</li>
+            <li>Unplug the charger after you finish charging.</li>
+          </ul>
+        </div>
+      }
     </div>
 
-    <!-- PDF Controls -->
+    <!-- Footer toolbar -->
     <div class="pdf-controls">
+      <!-- Upload button -->
+      <button class="upload-trigger-btn" (click)="openFilePicker()" aria-label="Upload new document">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span>Upload</span>
+      </button>
+
       <div class="zoom-controls">
         <button class="ctrl-btn" (click)="zoomOut()" aria-label="Zoom out" [disabled]="zoom() <= 50">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -83,5 +208,11 @@
         </button>
       </div>
     </div>
+
+    <!-- Hidden file input -->
+    <input #fileInput type="file" class="hidden-input"
+      accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
+      (change)="onFileSelected($event)" aria-hidden="true" />
   }
+
 </section>

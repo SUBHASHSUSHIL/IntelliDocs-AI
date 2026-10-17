@@ -58,9 +58,9 @@
               "Title": "DocumentsController.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\DocumentsController.cs",
               "RelativeDocumentMoniker": "Controllers\\DocumentsController.cs",
-              "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\DocumentsController.cs*",
-              "RelativeToolTip": "Controllers\\DocumentsController.cs*",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAwEEAAAAJAAAAAAAAAA==",
+              "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\DocumentsController.cs",
+              "RelativeToolTip": "Controllers\\DocumentsController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowBoAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-16T20:12:38.013Z",
               "EditorCaption": ""
@@ -75,8 +75,7 @@
               "RelativeToolTip": "Controllers\\HealthController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAwwA8AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T19:20:28.685Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T19:20:28.685Z"
             },
             {
               "$type": "Document",
@@ -124,8 +123,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-16T17:55:23.991Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-16T17:55:23.991Z"
             }
           ]
         }

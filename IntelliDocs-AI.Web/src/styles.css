@@ -8,7 +8,7 @@
 :root {
   --sidebar-bg: #0f1117;
   --sidebar-width: 220px;
-  --header-height: 56px;
+  --header-height: 60px;
   --accent-blue: #2563eb;
   --accent-blue-hover: #1d4ed8;
   --surface-1: #ffffff;
@@ -33,11 +33,26 @@
 
 html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   background: var(--surface-1);
   -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body > app-root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 button {

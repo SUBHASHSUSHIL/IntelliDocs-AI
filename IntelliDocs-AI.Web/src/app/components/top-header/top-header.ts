@@ -10,6 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class TopHeaderComponent {
   docName = input<string>('Product Requirements Doc.pdf');
-  userName = input<string>('Devon Lane');
+  userName = input<string>('Sushil Thakur');
   userInitials = input<string>('DL');
 }

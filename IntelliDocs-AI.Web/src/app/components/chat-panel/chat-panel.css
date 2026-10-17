@@ -11,7 +11,8 @@
 .panel-header {
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  height: var(--header-height);
+  padding: 0 16px;
   border-bottom: 1px solid var(--border);
   background: var(--surface-2);
   flex-shrink: 0;
@@ -194,7 +195,7 @@
 
 /* Chat input */
 .chat-input-area {
-  padding: 10px 14px 14px;
+  padding: 10px 14px;
   border-top: 1px solid var(--border);
   flex-shrink: 0;
   background: var(--surface-1);
