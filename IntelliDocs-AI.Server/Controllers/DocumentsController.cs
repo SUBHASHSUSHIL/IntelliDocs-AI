@@ -1,5 +1,6 @@
 ﻿using IntelliDocs_AI.Server.Models;
 using IntelliDocs_AI.Server.Services;
+using IntelliDocs_AI.Server.Services.AIServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntelliDocs_AI.Server.Controllers
@@ -11,11 +12,17 @@ namespace IntelliDocs_AI.Server.Controllers
     {
         private readonly IDocumentStorageService _storage;
         private readonly ILogger<DocumentsController> _logger;
+        private readonly PdfProcessingService _pdfProcessor;
+        private readonly EmbeddingService _embeddingService;
+        private readonly AzureSearchService _searchService;
 
-        public DocumentsController(IDocumentStorageService storage, ILogger<DocumentsController> logger)
+        public DocumentsController(IDocumentStorageService storage, ILogger<DocumentsController> logger, AzureSearchService searchService, EmbeddingService embeddingService, PdfProcessingService pdfProcessor)
         {
             _storage = storage;
             _logger = logger;
+            _searchService = searchService;
+            _embeddingService = embeddingService;
+            _pdfProcessor = pdfProcessor;
         }
 
         // ─── GET api/documents ───────────────────────────────────────────────────
@@ -78,6 +85,32 @@ namespace IntelliDocs_AI.Server.Controllers
             try
             {
                 var doc = await _storage.SaveAsync(file, ct);
+
+                // Process PDF and index its chunks for RAG.
+                if (string.Equals(
+                    Path.GetExtension(doc.OriginalFileName),
+                    ".pdf",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    var chunks = _pdfProcessor.ProcessPdf(
+                        doc.StoragePath,
+                        doc.Id,
+                        doc.OriginalFileName,
+                        ct);
+
+                    foreach (var chunk in chunks)
+                    {
+                        chunk.ContentVector = await _embeddingService.GenerateEmbeddingAsync(chunk.ChunkText, ct);
+                    }
+
+                    await _searchService.UploadChunksAsync(chunks, ct);
+
+                    _logger.LogInformation(
+                        "Indexed document {DocumentId} with {ChunkCount} chunks.",
+                        doc.Id,
+                        chunks.Count);
+                }
+
                 var dto = ToDto(doc);
 
                 return CreatedAtAction(

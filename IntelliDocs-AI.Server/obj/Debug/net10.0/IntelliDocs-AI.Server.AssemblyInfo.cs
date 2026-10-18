@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("ddea3823-e1bd-4a1d-936d-ae0a12a6a4a4")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c85777356ee0faa12ecace7e14d0b78b5aa729c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d32f9c49ee960a0aa67de5e903c2e10a15dfa609")]
 [assembly: System.Reflection.AssemblyProductAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

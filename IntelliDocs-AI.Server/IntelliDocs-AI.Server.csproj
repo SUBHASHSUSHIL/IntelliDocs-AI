@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>IntelliDocs_AI.Server</RootNamespace>
+    <UserSecretsId>ddea3823-e1bd-4a1d-936d-ae0a12a6a4a4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 using IntelliDocs_AI.Server.Services;
+using IntelliDocs_AI.Server.Services.AIServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen(c =>
 
 // Document storage (local file system, in-memory metadata)
 builder.Services.AddSingleton<IDocumentStorageService, LocalDocumentStorageService>();
+builder.Services.AddSingleton<PdfProcessingService>();
+builder.Services.AddSingleton<EmbeddingService>();
+builder.Services.AddSingleton<AzureSearchService>();
 
 // CORS – allow the Angular dev server
 builder.Services.AddCors(options =>
@@ -28,7 +32,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // ── Middleware ────────────────────────────────────────────────────────────────
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) 
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
