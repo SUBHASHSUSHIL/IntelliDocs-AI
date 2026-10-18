@@ -16,6 +16,7 @@ builder.Services.AddSingleton<IDocumentStorageService, LocalDocumentStorageServi
 builder.Services.AddSingleton<PdfProcessingService>();
 builder.Services.AddSingleton<EmbeddingService>();
 builder.Services.AddSingleton<AzureSearchService>();
+builder.Services.AddSingleton<ChatService>();
 
 // CORS – allow the Angular dev server
 builder.Services.AddCors(options =>

@@ -71,5 +71,54 @@ namespace IntelliDocs_AI.Server.Services.AIServices
                 }
             }
         }
+
+
+        // Add this method inside AzureSearchService class
+        public async Task<IReadOnlyList<DocumentChunk>> SearchSimilarChunksAsync(
+            float[] queryVector,
+            int top = 5,
+            CancellationToken cancellationToken = default)
+        {
+            var options = new SearchOptions
+            {
+                Size = top,
+                Select = { "id", "documentId", "fileName", "pageNumber", "chunkText" }
+            };
+
+            options.VectorSearch = new VectorSearchOptions
+            {
+                Queries =
+        {
+            new VectorizedQuery(queryVector)
+            {
+                KNearestNeighborsCount = top,
+                Fields = { "contentVector" }
+            }
+        }
+            };
+
+            var response = await _searchClient.SearchAsync<SearchDocument>(
+                "*",
+                options,
+                cancellationToken);
+
+            var chunks = new List<DocumentChunk>();
+
+            await foreach (var result in response.Value.GetResultsAsync())
+            {
+                var item = result.Document;
+
+                chunks.Add(new DocumentChunk
+                {
+                    Id = item["id"]?.ToString() ?? string.Empty,
+                    DocumentId = Guid.Parse(item["documentId"]?.ToString() ?? Guid.Empty.ToString()),
+                    FileName = item["fileName"]?.ToString() ?? string.Empty,
+                    PageNumber = Convert.ToInt32(item["pageNumber"]),
+                    ChunkText = item["chunkText"]?.ToString() ?? string.Empty
+                });
+            }
+
+            return chunks;
+        }
     }
 }

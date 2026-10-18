@@ -11,7 +11,6 @@
           "Azure.AI.OpenAI": "2.1.0",
           "Azure.Identity": "1.21.0",
           "Azure.Search.Documents": "12.0.0",
-          "OpenAI": "2.14.0",
           "PdfPig": "0.1.16",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -22,7 +21,7 @@
       "Azure.AI.OpenAI/2.1.0": {
         "dependencies": {
           "Azure.Core": "1.54.0",
-          "OpenAI": "2.14.0"
+          "OpenAI": "2.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/Azure.AI.OpenAI.dll": {
@@ -36,8 +35,8 @@
           "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
           "Microsoft.Identity.Client": "4.83.1",
           "Microsoft.Identity.Client.Extensions.Msal": "4.83.1",
-          "System.ClientModel": "1.15.0",
-          "System.Memory.Data": "10.0.9"
+          "System.ClientModel": "1.10.0",
+          "System.Memory.Data": "10.0.3"
         },
         "runtime": {
           "lib/net10.0/Azure.Core.dll": {
@@ -115,14 +114,14 @@
           }
         }
       },
-      "OpenAI/2.14.0": {
+      "OpenAI/2.1.0": {
         "dependencies": {
-          "System.ClientModel": "1.15.0"
+          "System.ClientModel": "1.10.0"
         },
         "runtime": {
-          "lib/net10.0/OpenAI.dll": {
-            "assemblyVersion": "2.14.0.0",
-            "fileVersion": "2.14.0.0"
+          "lib/net6.0/OpenAI.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
           }
         }
       },
@@ -195,22 +194,22 @@
           }
         }
       },
-      "System.ClientModel/1.15.0": {
+      "System.ClientModel/1.10.0": {
         "dependencies": {
-          "System.Memory.Data": "10.0.9"
+          "System.Memory.Data": "10.0.3"
         },
         "runtime": {
           "lib/net10.0/System.ClientModel.dll": {
-            "assemblyVersion": "1.15.0.0",
-            "fileVersion": "1.1500.26.40403"
+            "assemblyVersion": "1.10.0.0",
+            "fileVersion": "1.1000.26.16607"
           }
         }
       },
-      "System.Memory.Data/10.0.9": {
+      "System.Memory.Data/10.0.3": {
         "runtime": {
           "lib/net10.0/System.Memory.Data.dll": {
-            "assemblyVersion": "10.0.0.9",
-            "fileVersion": "10.0.926.27113"
+            "assemblyVersion": "10.0.0.3",
+            "fileVersion": "10.0.326.7603"
           }
         }
       },
@@ -301,12 +300,12 @@
       "path": "microsoft.openapi/1.6.14",
       "hashPath": "microsoft.openapi.1.6.14.nupkg.sha512"
     },
-    "OpenAI/2.14.0": {
+    "OpenAI/2.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AeyC3GxbrJ7KRoWDyFeNSUOQQWD9AnNvM7LYQijCcXcqjyr53aGRcf5GBLExcSBzIs0RWYHe+NbzPrHTeuU5zA==",
-      "path": "openai/2.14.0",
-      "hashPath": "openai.2.14.0.nupkg.sha512"
+      "sha512": "sha512-zl72nyP4O94ZyEoCLoE8qoc5vp8kSJmRuqR+UdK+jNIjFJGWJYjsb4rAGpMWWRTbPYuk82E8myMJdVQurMLDnQ==",
+      "path": "openai/2.1.0",
+      "hashPath": "openai.2.1.0.nupkg.sha512"
     },
     "PdfPig/0.1.16": {
       "type": "package",
@@ -343,19 +342,19 @@
       "path": "swashbuckle.aspnetcore.swaggerui/6.6.2",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
     },
-    "System.ClientModel/1.15.0": {
+    "System.ClientModel/1.10.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-y6zQLInrpX+oGL1gXM04DrUSu1O1esWxt4rD/zrujTnzIFChn/noD1OiVVpTrU8ZvglwqO2Uw038svUR3SiAOg==",
-      "path": "system.clientmodel/1.15.0",
-      "hashPath": "system.clientmodel.1.15.0.nupkg.sha512"
+      "sha512": "sha512-lBEWs54F5Y5pZ9hC+8z4S/X76957ex+DPk7WecRHlbIHtrPfbRMMlOgI3iDn4Jpb3bSxvBnKaaHoD59auFjlBA==",
+      "path": "system.clientmodel/1.10.0",
+      "hashPath": "system.clientmodel.1.10.0.nupkg.sha512"
     },
-    "System.Memory.Data/10.0.9": {
+    "System.Memory.Data/10.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YweovHiLUoEdbr2Xv8eRqCSkTu1vMms4a6xBHaQiMSFVy32PL+hXv6Vhol2NWOmLHjaVgTyhJ3R52U6JxS6w3Q==",
-      "path": "system.memory.data/10.0.9",
-      "hashPath": "system.memory.data.10.0.9.nupkg.sha512"
+      "sha512": "sha512-MaGhRfGunmrj/nHjtsi9XkhlYJ/ERGWrbA+BiSKNtGnAjc9XlG5EhAvak6VRcX5LYzPF6pBO8nJ613dTgzabig==",
+      "path": "system.memory.data/10.0.3",
+      "hashPath": "system.memory.data.10.0.3.nupkg.sha512"
     },
     "System.Security.Cryptography.ProtectedData/4.5.0": {
       "type": "package",

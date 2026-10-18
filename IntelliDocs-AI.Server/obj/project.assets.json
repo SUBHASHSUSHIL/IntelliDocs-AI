@@ -160,23 +160,20 @@
           }
         }
       },
-      "OpenAI/2.14.0": {
+      "OpenAI/2.1.0": {
         "type": "package",
         "dependencies": {
-          "System.ClientModel": "1.15.0"
+          "System.ClientModel": "1.2.1"
         },
         "compile": {
-          "lib/net10.0/OpenAI.dll": {
+          "lib/net6.0/OpenAI.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net10.0/OpenAI.dll": {
+          "lib/net6.0/OpenAI.dll": {
             "related": ".xml"
           }
-        },
-        "build": {
-          "buildTransitive/netstandard2.0/OpenAI.targets": {}
         }
       },
       "PdfPig/0.1.16": {
@@ -291,10 +288,10 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "System.ClientModel/1.15.0": {
+      "System.ClientModel/1.10.0": {
         "type": "package",
         "dependencies": {
-          "System.Memory.Data": "10.0.9"
+          "System.Memory.Data": "10.0.3"
         },
         "compile": {
           "lib/net10.0/System.ClientModel.dll": {
@@ -310,7 +307,7 @@
           "buildTransitive/net10.0/System.ClientModel.targets": {}
         }
       },
-      "System.Memory.Data/10.0.9": {
+      "System.Memory.Data/10.0.3": {
         "type": "package",
         "compile": {
           "lib/net10.0/System.Memory.Data.dll": {
@@ -770,25 +767,21 @@
         "microsoft.openapi.nuspec"
       ]
     },
-    "OpenAI/2.14.0": {
-      "sha512": "AeyC3GxbrJ7KRoWDyFeNSUOQQWD9AnNvM7LYQijCcXcqjyr53aGRcf5GBLExcSBzIs0RWYHe+NbzPrHTeuU5zA==",
+    "OpenAI/2.1.0": {
+      "sha512": "zl72nyP4O94ZyEoCLoE8qoc5vp8kSJmRuqR+UdK+jNIjFJGWJYjsb4rAGpMWWRTbPYuk82E8myMJdVQurMLDnQ==",
       "type": "package",
-      "path": "openai/2.14.0",
+      "path": "openai/2.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "CHANGELOG.md",
-        "ConfigurationSchema.json",
         "OpenAI.png",
         "README.md",
-        "buildTransitive/netstandard2.0/OpenAI.targets",
-        "lib/net10.0/OpenAI.dll",
-        "lib/net10.0/OpenAI.xml",
-        "lib/net8.0/OpenAI.dll",
-        "lib/net8.0/OpenAI.xml",
+        "lib/net6.0/OpenAI.dll",
+        "lib/net6.0/OpenAI.xml",
         "lib/netstandard2.0/OpenAI.dll",
         "lib/netstandard2.0/OpenAI.xml",
-        "openai.2.14.0.nupkg.sha512",
+        "openai.2.1.0.nupkg.sha512",
         "openai.nuspec"
       ]
     },
@@ -1054,10 +1047,10 @@
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
-    "System.ClientModel/1.15.0": {
-      "sha512": "y6zQLInrpX+oGL1gXM04DrUSu1O1esWxt4rD/zrujTnzIFChn/noD1OiVVpTrU8ZvglwqO2Uw038svUR3SiAOg==",
+    "System.ClientModel/1.10.0": {
+      "sha512": "lBEWs54F5Y5pZ9hC+8z4S/X76957ex+DPk7WecRHlbIHtrPfbRMMlOgI3iDn4Jpb3bSxvBnKaaHoD59auFjlBA==",
       "type": "package",
-      "path": "system.clientmodel/1.15.0",
+      "path": "system.clientmodel/1.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1078,14 +1071,14 @@
         "lib/net9.0/System.ClientModel.xml",
         "lib/netstandard2.0/System.ClientModel.dll",
         "lib/netstandard2.0/System.ClientModel.xml",
-        "system.clientmodel.1.15.0.nupkg.sha512",
+        "system.clientmodel.1.10.0.nupkg.sha512",
         "system.clientmodel.nuspec"
       ]
     },
-    "System.Memory.Data/10.0.9": {
-      "sha512": "YweovHiLUoEdbr2Xv8eRqCSkTu1vMms4a6xBHaQiMSFVy32PL+hXv6Vhol2NWOmLHjaVgTyhJ3R52U6JxS6w3Q==",
+    "System.Memory.Data/10.0.3": {
+      "sha512": "MaGhRfGunmrj/nHjtsi9XkhlYJ/ERGWrbA+BiSKNtGnAjc9XlG5EhAvak6VRcX5LYzPF6pBO8nJ613dTgzabig==",
       "type": "package",
-      "path": "system.memory.data/10.0.9",
+      "path": "system.memory.data/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1106,7 +1099,7 @@
         "lib/net9.0/System.Memory.Data.xml",
         "lib/netstandard2.0/System.Memory.Data.dll",
         "lib/netstandard2.0/System.Memory.Data.xml",
-        "system.memory.data.10.0.9.nupkg.sha512",
+        "system.memory.data.10.0.3.nupkg.sha512",
         "system.memory.data.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -1158,7 +1151,6 @@
       "Azure.AI.OpenAI >= 2.1.0",
       "Azure.Identity >= 1.21.0",
       "Azure.Search.Documents >= 12.0.0",
-      "OpenAI >= 2.14.0",
       "PdfPig >= 0.1.16",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
@@ -1227,10 +1219,6 @@
           "Azure.Search.Documents": {
             "target": "Package",
             "version": "[12.0.0, )"
-          },
-          "OpenAI": {
-            "target": "Package",
-            "version": "[2.14.0, )"
           },
           "PdfPig": {
             "target": "Package",

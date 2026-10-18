@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "IntelliDocs_AI.Server.Controllers.ChatController",
+    "Method": "Ask",
+    "RelativePath": "api/Chat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "IntelliDocs_AI.Server.Controllers.ChatController\u002BChatRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "IntelliDocs_AI.Server.Controllers.DocumentsController",
     "Method": "GetAll",
     "RelativePath": "api/Documents",
