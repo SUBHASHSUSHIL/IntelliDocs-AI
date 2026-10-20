@@ -26,4 +26,10 @@
   display: flex;
   overflow: hidden;
   min-height: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.upload-handler {
+  display: none !important;
 }

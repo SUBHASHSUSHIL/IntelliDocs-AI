@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\intellidocs-ai-server.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:intellidocs-ai-server.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\intellidocs-ai.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:intellidocs-ai.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\services\\ai-services\\azuresearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:services\\ai-services\\azuresearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,15 +23,7 @@
       "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:services\\ai-services\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\acer\\AppData\\Roaming\\Microsoft\\UserSecrets\\ddea3823-e1bd-4a1d-936d-ae0a12a6a4a4\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\services\\ai-services\\azuresearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|solutionrelative:services\\ai-services\\azuresearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{06E55002-64AF-E3BF-D129-4A6E50B98EC0}|IntelliDocs-AI.Server.csproj|d:\\intellidocs-ai\\intellidocs-ai.server\\services\\ai-services\\embeddingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -49,7 +41,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,32 +54,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IntelliDocs-AI-Server.md",
-              "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI-Server.md",
-              "RelativeDocumentMoniker": "IntelliDocs-AI-Server.md",
-              "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI-Server.md",
-              "RelativeToolTip": "IntelliDocs-AI-Server.md",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAiwNkAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-10-18T02:51:54.767Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IntelliDocs-AI.Server.csproj",
-              "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI.Server.csproj",
-              "RelativeDocumentMoniker": "IntelliDocs-AI.Server.csproj",
-              "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\IntelliDocs-AI.Server.csproj",
-              "RelativeToolTip": "IntelliDocs-AI.Server.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-18T02:36:06.726Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -115,27 +81,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "DocumentsController.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\DocumentsController.cs",
               "RelativeDocumentMoniker": "Controllers\\DocumentsController.cs",
               "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Controllers\\DocumentsController.cs",
               "RelativeToolTip": "Controllers\\DocumentsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-17T18:53:56.597Z"
+              "WhenOpened": "2026-10-17T18:53:56.597Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "AzureSearchService.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Services\\AI-Services\\AzureSearchService.cs",
               "RelativeDocumentMoniker": "Services\\AI-Services\\AzureSearchService.cs",
               "ToolTip": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Services\\AI-Services\\AzureSearchService.cs",
               "RelativeToolTip": "Services\\AI-Services\\AzureSearchService.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAkwGQAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-17T18:29:16.04Z"
+              "WhenOpened": "2026-10-17T18:29:16.04Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -151,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\acer\\AppData\\Roaming\\Microsoft\\UserSecrets\\ddea3823-e1bd-4a1d-936d-ae0a12a6a4a4\\secrets.json",
               "ToolTip": "C:\\Users\\acer\\AppData\\Roaming\\Microsoft\\UserSecrets\\ddea3823-e1bd-4a1d-936d-ae0a12a6a4a4\\secrets.json",
@@ -161,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "EmbeddingService.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Services\\AI-Services\\EmbeddingService.cs",
               "RelativeDocumentMoniker": "Services\\AI-Services\\EmbeddingService.cs",
@@ -173,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "PdfProcessingService.cs",
               "DocumentMoniker": "D:\\IntelliDocs-AI\\IntelliDocs-AI.Server\\Services\\AI-Services\\PdfProcessingService.cs",
               "RelativeDocumentMoniker": "Services\\AI-Services\\PdfProcessingService.cs",

@@ -1,7 +1,7 @@
-import { Component, signal, inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, signal, inject, ElementRef, ViewChild, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DocumentService } from '../../core/services/document.service';
-import { DocumentDto } from '../../core/models/document.model';
+import { DocumentDto, DocumentUploadUpdate } from '../../core/models/document.model';
 
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
 
@@ -15,7 +15,10 @@ type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
 export class PdfViewerComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
+  readonly uploadStateChange = output<DocumentUploadUpdate>();
+
   private readonly docService = inject(DocumentService);
+  private nextUploadId = 1;
 
   panelLabel = signal('AI Voice Changer PDF File....');
   zoom = signal(100);
@@ -70,18 +73,41 @@ export class PdfViewerComponent {
   // ── upload ───────────────────────────────────────────────────────────────────
 
   upload(file: File) {
+    const uploadId = this.nextUploadId++;
     this.uploadStatus.set('uploading');
     this.uploadProgress.set(0);
     this.uploadMessage.set('');
+    this.uploadStateChange.emit({
+      uploadId,
+      fileName: file.name,
+      sizeBytes: file.size,
+      status: 'uploading',
+      progress: 0,
+    });
 
     this.docService.upload(file).subscribe({
       next: (evt) => {
         if (evt.kind === 'progress') {
           this.uploadProgress.set(evt.progress);
+          this.uploadStateChange.emit({
+            uploadId,
+            fileName: file.name,
+            sizeBytes: file.size,
+            status: 'uploading',
+            progress: evt.progress,
+          });
         } else {
           if (evt.response.success && evt.response.document) {
             this.uploadStatus.set('success');
             this.uploadMessage.set(`"${file.name}" uploaded successfully.`);
+            this.uploadStateChange.emit({
+              uploadId,
+              fileName: file.name,
+              sizeBytes: file.size,
+              status: 'success',
+              progress: 100,
+              message: 'Uploaded successfully',
+            });
             // Add to local list and set as active
             this.documents.update((list) => [evt.response.document!, ...list]);
             this.activeDocument.set(evt.response.document!);
@@ -89,12 +115,28 @@ export class PdfViewerComponent {
           } else {
             this.uploadStatus.set('error');
             this.uploadMessage.set(evt.response.message || 'Upload failed.');
+            this.uploadStateChange.emit({
+              uploadId,
+              fileName: file.name,
+              sizeBytes: file.size,
+              status: 'error',
+              progress: 0,
+              message: evt.response.message || 'Upload failed.',
+            });
           }
         }
       },
       error: (err) => {
         this.uploadStatus.set('error');
         this.uploadMessage.set(err?.error?.message ?? 'Upload failed. Is the server running?');
+        this.uploadStateChange.emit({
+          uploadId,
+          fileName: file.name,
+          sizeBytes: file.size,
+          status: 'error',
+          progress: 0,
+          message: this.uploadMessage(),
+        });
       },
     });
   }

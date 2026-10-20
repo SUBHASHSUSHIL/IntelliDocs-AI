@@ -1,6 +1,8 @@
-import { Component, signal, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, signal, ElementRef, ViewChild, AfterViewChecked, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChatService } from '../../core/services/chat.service';
+import { DocumentUploadUpdate } from '../../core/models/document.model';
 
 export type MessageRole = 'user' | 'ai';
 
@@ -9,7 +11,10 @@ export interface ChatMessage {
   role: MessageRole;
   text: string;
   time: string;
+  attachment?: DocumentUploadUpdate;
+  sources?: string[];
   hasActions?: boolean;
+  isError?: boolean;
 }
 
 @Component({
@@ -22,34 +27,31 @@ export interface ChatMessage {
 export class ChatPanelComponent implements AfterViewChecked {
   @ViewChild('messagesContainer') messagesContainer!: ElementRef<HTMLDivElement>;
 
+  readonly uploadRequested = output<void>();
+
+  private readonly chatService = inject(ChatService);
+
   panelLabel = signal('AI Voice Changer PDF File....');
   messageInput = signal('');
   selectedLanguage = signal('English');
   isTyping = signal(false);
-  private nextId = 4;
+
+  private nextId = 2;
   private shouldScroll = false;
+  private lastUserQuestion = '';
+
+  get hasLastQuestion() { return !!this.lastUserQuestion; }
 
   readonly messages = signal<ChatMessage[]>([
     {
       id: 1,
       role: 'ai',
       text: 'How can I help you today?',
-      time: '12:54 PM',
-    },
-    {
-      id: 2,
-      role: 'user',
-      text: 'Show me device setup wizard',
-      time: '12:54 PM',
-    },
-    {
-      id: 3,
-      role: 'ai',
-      text: 'Setup Wizard:\nWhen you first boot up the phone (or after a factory reset), the setup wizard lets you customise all features, including language, software buttons, gestures, fingerprint unlock, and other features. If you want to change these later, you can do so after settings up the phone in the settings aoo.',
-      time: '12:55 PM',
-      hasActions: true,
+      time: this.formatTime(),
     },
   ]);
+
+  // ── Lifecycle ──────────────────────────────────────────────────────────────
 
   ngAfterViewChecked() {
     if (this.shouldScroll) {
@@ -66,37 +68,92 @@ export class ChatPanelComponent implements AfterViewChecked {
   }
 
   private formatTime(): string {
-    const now = new Date();
-    return now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return new Date().toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
   }
+
+  // ── Send ───────────────────────────────────────────────────────────────────
 
   sendMessage() {
     const text = this.messageInput().trim();
-    if (!text) return;
+    if (!text || this.isTyping()) return;
 
+    // Add user message
     this.messages.update((msgs) => [
       ...msgs,
       { id: this.nextId++, role: 'user', text, time: this.formatTime() },
     ]);
+
+    this.lastUserQuestion = text;
     this.messageInput.set('');
     this.isTyping.set(true);
     this.shouldScroll = true;
 
-    // Simulate AI response
-    setTimeout(() => {
-      this.messages.update((msgs) => [
-        ...msgs,
-        {
-          id: this.nextId++,
-          role: 'ai',
-          text: `I found relevant information about "${text}" in the document. Let me summarize the key points for you based on the PDF content.`,
-          time: this.formatTime(),
-          hasActions: true,
-        },
-      ]);
-      this.isTyping.set(false);
-      this.shouldScroll = true;
-    }, 1500);
+    // Call the real API
+    this.chatService.ask(text).subscribe({
+      next: (res) => {
+        this.messages.update((msgs) => [
+          ...msgs,
+          {
+            id: this.nextId++,
+            role: 'ai',
+            text: res.answer,
+            time: this.formatTime(),
+            sources: res.sources?.length ? res.sources : undefined,
+            hasActions: true,
+          },
+        ]);
+        this.isTyping.set(false);
+        this.shouldScroll = true;
+      },
+      error: (err) => {
+        const msg =
+          err?.error?.message ??
+          err?.message ??
+          'Something went wrong. Please try again.';
+        this.messages.update((msgs) => [
+          ...msgs,
+          {
+            id: this.nextId++,
+            role: 'ai',
+            text: msg,
+            time: this.formatTime(),
+            hasActions: false,
+            isError: true,
+          },
+        ]);
+        this.isTyping.set(false);
+        this.shouldScroll = true;
+      },
+    });
+  }
+
+  onUploadStateChange(update: DocumentUploadUpdate) {
+    this.messages.update((msgs) => {
+      const existingMessage = msgs.find((msg) => msg.attachment?.uploadId === update.uploadId);
+      if (!existingMessage) {
+        return [
+          ...msgs,
+          {
+            id: this.nextId++,
+            role: 'user',
+            text: '',
+            time: this.formatTime(),
+            attachment: update,
+          },
+        ];
+      }
+
+      return msgs.map((msg) =>
+        msg.attachment?.uploadId === update.uploadId
+          ? { ...msg, attachment: update }
+          : msg
+      );
+    });
+    this.shouldScroll = true;
   }
 
   onKeydown(event: KeyboardEvent) {
@@ -106,20 +163,47 @@ export class ChatPanelComponent implements AfterViewChecked {
     }
   }
 
+  // ── Regenerate ─────────────────────────────────────────────────────────────
+
   regenerate() {
-    const msgs = this.messages();
-    const lastAi = [...msgs].reverse().find((m) => m.role === 'ai');
-    if (!lastAi) return;
+    if (!this.lastUserQuestion || this.isTyping()) return;
+
+    // Remove the last AI message then re-ask
+    this.messages.update((msgs) => {
+      const lastAiIdx = [...msgs].reverse().findIndex((m) => m.role === 'ai');
+      if (lastAiIdx === -1) return msgs;
+      const idx = msgs.length - 1 - lastAiIdx;
+      return msgs.filter((_, i) => i !== idx);
+    });
+
     this.isTyping.set(true);
-    setTimeout(() => {
-      this.messages.update((list) =>
-        list.map((m) =>
-          m.id === lastAi.id
-            ? { ...m, text: 'Here is a regenerated response based on the document content. The setup wizard guides you through initial device configuration step by step.' }
-            : m
-        )
-      );
-      this.isTyping.set(false);
-    }, 1200);
+    this.shouldScroll = true;
+
+    this.chatService.ask(this.lastUserQuestion).subscribe({
+      next: (res) => {
+        this.messages.update((msgs) => [
+          ...msgs,
+          {
+            id: this.nextId++,
+            role: 'ai',
+            text: res.answer,
+            time: this.formatTime(),
+            sources: res.sources?.length ? res.sources : undefined,
+            hasActions: true,
+          },
+        ]);
+        this.isTyping.set(false);
+        this.shouldScroll = true;
+      },
+      error: () => {
+        this.isTyping.set(false);
+      },
+    });
+  }
+
+  // ── Copy ───────────────────────────────────────────────────────────────────
+
+  copyMessage(text: string) {
+    navigator.clipboard.writeText(text).catch(() => {});
   }
 }

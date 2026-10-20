@@ -1,15 +1,21 @@
 <div class="app-shell">
   <!-- Left sidebar -->
-  <app-sidebar />
+  <app-sidebar (newDocumentRequested)="pdfViewer.openFilePicker()" />
+
+  <app-pdf-viewer
+    #pdfViewer
+    class="upload-handler"
+    aria-hidden="true"
+    (uploadStateChange)="chatPanel.onUploadStateChange($event)"
+  />
 
   <!-- Main area: header + content -->
   <div class="main-area">
     <app-top-header />
 
-    <!-- Content: PDF viewer + Chat panel -->
+    <!-- Main content -->
     <div class="content-area">
-      <app-pdf-viewer />
-      <app-chat-panel />
+      <app-chat-panel #chatPanel (uploadRequested)="pdfViewer.openFilePicker()" />
     </div>
   </div>
 </div>

@@ -145,17 +145,72 @@ namespace IntelliDocs_AI.Server.Controllers
 
         // ─── DELETE api/documents/{id} ────────────────────────────────────────────
         /// <summary>Deletes a document by id.</summary>
+        //[HttpDelete("{id:guid}")]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult Delete(Guid id)
+        //{
+        //    var deleted = _storage.Delete(id);
+        //    if (!deleted)
+        //        return NotFound(new { message = $"Document {id} not found." });
+
+        //    return NoContent();
+        //}
+
+
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(
+            Guid id,
+            CancellationToken ct)
         {
-            var deleted = _storage.Delete(id);
-            if (!deleted)
-                return NotFound(new { message = $"Document {id} not found." });
+            var result = await _storage.GetAsync(id, ct);
 
-            return NoContent();
+            if (result is null)
+            {
+                return NotFound(new
+                {
+                    message = $"Document {id} not found."
+                });
+            }
+
+            try
+            {
+                // Step 1: Delete the document's indexed chunks first.
+                await _searchService.DeleteChunksByDocumentIdAsync(id, ct);
+
+                // Step 2: Delete the original file and its metadata.
+                var deleted = _storage.Delete(id);
+
+                if (!deleted)
+                {
+                    _logger.LogError(
+                        "Search chunks were deleted, but local document {DocumentId} could not be deleted.",
+                        id);
+
+                    return StatusCode(500, new
+                    {
+                        message = "Indexed chunks were deleted, but the local document could not be deleted."
+                    });
+                }
+
+                return NoContent();
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                _logger.LogError(
+                    ex,
+                    "Failed to delete document {DocumentId} and its indexed chunks.",
+                    id);
+
+                return StatusCode(500, new
+                {
+                    message = "Document deletion failed. Please check server logs before retrying."
+                });
+            }
         }
+
 
         // ─── helpers ─────────────────────────────────────────────────────────────
         private DocumentDto ToDto(Document doc) => new()

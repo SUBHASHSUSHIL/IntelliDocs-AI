@@ -49,10 +49,10 @@ D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\staticwebassets.build.
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\staticwebassets.development.json
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\swae.build.ex.cache
+D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\IntelliD.F4E29E3E.Up2Date
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\IntelliDocs-AI.Server.dll
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\refint\IntelliDocs-AI.Server.dll
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\IntelliDocs-AI.Server.pdb
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\IntelliDocs-AI.Server.genruntimeconfig.cache
 D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\ref\IntelliDocs-AI.Server.dll
-D:\IntelliDocs-AI\IntelliDocs-AI.Server\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

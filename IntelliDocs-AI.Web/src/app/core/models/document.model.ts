@@ -12,3 +12,12 @@ export interface UploadDocumentResponse {
   message: string;
   document?: DocumentDto;
 }
+
+export interface DocumentUploadUpdate {
+  uploadId: number;
+  fileName: string;
+  sizeBytes: number;
+  status: 'uploading' | 'success' | 'error';
+  progress: number;
+  message?: string;
+}

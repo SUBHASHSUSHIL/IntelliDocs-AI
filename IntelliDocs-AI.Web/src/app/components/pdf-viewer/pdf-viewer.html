@@ -136,33 +136,6 @@
             </div>
           </div>
 
-          <h2>Getting started</h2>
-          <p class="subtitle">Learn more about your device and start using it.</p>
-
-          <h3>Setting up your device</h3>
-          <h4>Insert SIM card</h4>
-          <ol>
-            <li>Insert the SIM Tray Ejector into the small hole on the SIM card holder. Press the ejector firmly into the hole to push the SIM card tray out.</li>
-            <li>Slowly pull the SIM card tray out of the tray slot.</li>
-            <li>Place the SIM card into the SIM card tray.</li>
-            <li>Plug the SIM card tray back into your device.</li>
-          </ol>
-          <p class="note">* Use the original Nano-SIM card. Non-original cards may cause damage.</p>
-
-          <h3>Booting up your OnePlus device</h3>
-          <p>Press and hold the power button for a few seconds to boot up the phone.</p>
-
-          <h4>Setup Wizard</h4>
-          <p>When you first boot up the phone (or after a factory reset), the <mark>Setup Wizard</mark> lets you customise all features, including language, software buttons, gestures, fingerprint unlock, and other features.</p>
-
-          <h3>Battery and charging</h3>
-          <p><strong>You will need to charge the phone when you first get it or if you have not used it for a long time.</strong></p>
-          <h4>Safety Information</h4>
-          <ul>
-            <li>Only use the official charger and USB cable.</li>
-            <li>OnePlus device supports the USB Type-C cable.</li>
-            <li>Unplug the charger after you finish charging.</li>
-          </ul>
         </div>
       }
     </div>
@@ -208,11 +181,11 @@
         </button>
       </div>
     </div>
-
-    <!-- Hidden file input -->
-    <input #fileInput type="file" class="hidden-input"
-      accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
-      (change)="onFileSelected($event)" aria-hidden="true" />
   }
+
+  <!-- Keep the picker available when the panel is collapsed. -->
+  <input #fileInput type="file" class="hidden-input"
+    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
+    (change)="onFileSelected($event)" aria-hidden="true" />
 
 </section>

@@ -120,5 +120,64 @@ namespace IntelliDocs_AI.Server.Services.AIServices
 
             return chunks;
         }
+
+
+        public async Task DeleteChunksByDocumentIdAsync(
+            Guid documentId,
+            CancellationToken cancellationToken = default)
+        {
+            var documentIdValue = documentId.ToString();
+
+            var options = new SearchOptions
+            {
+                Filter = $"documentId eq '{documentIdValue}'",
+                Size = 1000,
+                Select = { "id" }
+            };
+
+            var response = await _searchClient.SearchAsync<SearchDocument>(
+                "*",
+                options,
+                cancellationToken);
+
+            var chunkIds = new List<string>();
+
+            await foreach (var result in response.Value.GetResultsAsync())
+            {
+                if (result.Document.TryGetValue("id", out var value) &&
+                    value is not null)
+                {
+                    chunkIds.Add(value.ToString()!);
+                }
+            }
+
+            // Delete in batches and check every result.
+            const int batchSize = 500;
+
+            for (var i = 0; i < chunkIds.Count; i += batchSize)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var batch = IndexDocumentsBatch.Delete(
+                    chunkIds.Skip(i).Take(batchSize)
+                        .Select(id => new SearchDocument { ["id"] = id }));
+
+                var deleteResponse = await _searchClient.IndexDocumentsAsync(
+                    batch,
+                    cancellationToken: cancellationToken);
+
+                var failures = deleteResponse.Value.Results
+                    .Where(item => !item.Succeeded)
+                    .ToList();
+
+                if (failures.Count > 0)
+                {
+                    throw new InvalidOperationException(
+                        $"Failed to delete {failures.Count} indexed chunks " +
+                        $"for document {documentId}.");
+                }
+            }
+        }
+
     }
 }
