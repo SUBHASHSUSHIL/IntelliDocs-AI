@@ -292,7 +292,6 @@
   display: flex;
   justify-content: center;
   padding: 8px 16px;
-  border-top: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -301,7 +300,7 @@
   align-items: center;
   gap: 6px;
   padding: 6px 16px;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 99px;
   font-size: 13px;
   font-weight: 500;

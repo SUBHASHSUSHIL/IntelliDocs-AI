@@ -36,6 +36,16 @@
   flex-shrink: 0;
 }
 
+.logo-expand-btn {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.logo-expand-btn:focus-visible {
+  outline: 2px solid var(--text-on-dark);
+  outline-offset: 3px;
+}
+
 .logo-text {
   color: var(--text-on-dark);
   font-size: 15px;
@@ -46,21 +56,68 @@
 }
 
 .collapse-btn {
-  margin-left: auto;
+  position: fixed;
+  top: 50%;
+  left: calc(var(--sidebar-width) - 6px);
+  transform: translateY(-50%);
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
+  width: 20px;
   height: 28px;
-  border-radius: var(--radius-sm);
+  border: none;
+  border-radius: 0;
   color: var(--text-on-dark-muted);
-  transition: background 0.15s, color 0.15s;
+  background: transparent;
+  cursor: pointer;
+  transition: left 0.25s ease;
   flex-shrink: 0;
 }
 
-.collapse-btn:hover {
-  background: var(--sidebar-item-hover);
+.sidebar-tool-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.sidebar.collapsed .sidebar-tool-icons {
+  align-self: stretch;
+}
+
+.sidebar-tool-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: var(--radius-md);
+  color: var(--text-on-dark-muted);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.sidebar-tool-icon svg {
+  flex: 0 0 20px;
+}
+
+.sidebar-tool-icon span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar.collapsed .sidebar-tool-icon {
+  justify-content: flex-start;
+  width: 40px;
+  padding: 0 0 0 16px;
+}
+
+.sidebar-tool-icon.active {
   color: var(--text-on-dark);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* New Document Button */
@@ -249,4 +306,150 @@
 
 .history-item.active svg {
   color: var(--accent-blue);
+}
+
+.settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: auto;
+  padding: 10px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-on-dark-muted);
+  font-size: 13px;
+  text-align: left;
+  transition: color 0.12s;
+  flex-shrink: 0;
+}
+
+.settings-btn:hover {
+  color: var(--text-on-dark);
+}
+
+.sidebar.collapsed .settings-btn {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.settings-flyout {
+  position: fixed;
+  left: calc(var(--sidebar-width) + 8px);
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  width: 286px;
+  max-width: calc(100vw - var(--sidebar-width) - 24px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  padding: 14px 12px;
+  color: #f3f4f6;
+  background: #262626;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+}
+
+.sidebar.collapsed .settings-flyout {
+  left: 68px;
+  max-width: calc(100vw - 84px);
+}
+
+.settings-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 8px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.settings-menu-button {
+  width: 100%;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-menu-button:hover,
+.settings-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.settings-menu-button:focus-visible,
+.settings-menu-item:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: -2px;
+}
+
+.settings-avatar {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  place-items: center;
+  border-radius: 50%;
+  color: #f3f4f6;
+  background: #7b898b;
+  font-size: 10px;
+}
+
+.settings-profile-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.settings-profile-name {
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-profile-plan {
+  color: #a3a3a3;
+  font-size: 12px;
+}
+
+.settings-chevron {
+  margin-left: auto;
+  color: #a3a3a3;
+}
+
+.settings-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 0;
+}
+
+.settings-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: #e5e5e5;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-menu-footer {
+  padding-bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 400px) {
+  .settings-flyout {
+    right: 12px;
+    left: 68px;
+    width: auto;
+    max-width: none;
+  }
 }

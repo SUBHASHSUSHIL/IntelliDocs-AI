@@ -1,4 +1,4 @@
-import { Component, signal, computed, output } from '@angular/core';
+import { Component, signal, computed, output, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -25,6 +25,7 @@ export class SidebarComponent {
 
   searchQuery = signal('');
   collapsed = signal(false);
+  settingsOpen = signal(false);
 
   readonly recentDoc = signal({
     name: 'Product Requir...',
@@ -72,6 +73,28 @@ export class SidebarComponent {
 
   toggleCollapse() {
     this.collapsed.update((v) => !v);
+    this.settingsOpen.set(false);
+  }
+
+  toggleSettings() {
+    this.settingsOpen.update((open) => !open);
+  }
+
+  closeSettings() {
+    this.settingsOpen.set(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeSettingsOnOutsideClick(event: MouseEvent) {
+    const target = event.target;
+    if (target instanceof Element && !target.closest('.settings-btn, .settings-flyout')) {
+      this.settingsOpen.set(false);
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  closeSettingsOnEscape() {
+    this.settingsOpen.set(false);
   }
 
   setActive(id: number) {

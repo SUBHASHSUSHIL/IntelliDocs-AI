@@ -9,3 +9,7 @@ wwwroot\uploads\e71613f4-5e61-418d-ad65-acf9eeb8db0e.pdf
 wwwroot\uploads\Resume Checker Results_1b477bb7eaf04ae99ac9b18aa7957e89.pdf
 wwwroot\uploads\Sushil_Thakur_CV_AI_FullStack_4a637cfceab0494c9bdc22899dcb7209.pdf
 wwwroot\uploads\23177478-56e5-4871-8d30-ea5c050967d8.pdf
+wwwroot\uploads\1ce3bc60-6b8d-468a-86ab-0478d3cac821.pdf
+wwwroot\uploads\8de0323c-d888-4afe-85bf-1f2298b404fa.pdf
+wwwroot\uploads\dd92e41c-a2a1-4a63-9b5a-3a06bb5f8ec8.pdf
+wwwroot\uploads\4f9c192d-0a25-48ba-be0c-83ef4bfc351f.pdf
