@@ -39,7 +39,7 @@ IntelliDocs-AI is a full-stack intelligent document platform. Users upload docum
 │   │  • Zoom / Page controls  │   │  • Source citations          │  │
 │   │  • Drag-and-drop zone    │   │  • Regenerate support        │  │
 │   └──────────────┬───────────┘   └───────────────┬──────────────┘  │
-│                  │  Angular 19 (Standalone)       │                 │
+│                  │  Angular 22 (Standalone)       │                 │
 │                  │  DocumentService               ChatService       │
 └──────────────────┼────────────────────────────────┼────────────────┘
                    │              HTTPS / REST       │
@@ -83,7 +83,7 @@ IntelliDocs-AI is a full-stack intelligent document platform. Users upload docum
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Frontend** | Angular 19 (Standalone Components) | SPA shell, routing, UI |
+| **Frontend** | Angular 22.2 (Standalone Components) | SPA shell, routing, UI |
 | **UI State** | Angular Signals (`signal()`) | Reactive, fine-grained state |
 | **HTTP Client** | Angular `HttpClient` | REST calls with upload progress |
 | **Styling** | CSS Custom Properties + Flexbox | Design tokens, responsive layout |
@@ -126,13 +126,13 @@ IntelliDocs-AI/
 │   ├── appsettings.json                # Base configuration keys (no secrets)
 │   └── appsettings.Development.json    # Dev-only overrides
 │
-└── IntelliDocs-AI.Web/                 # Angular 19 SPA
+└── IntelliDocs-AI.Web/                 # Angular 22.2 SPA
     └── src/
         └── app/
             ├── app.ts                  # Root component (shell)
             ├── app.html                # Two-panel layout template
             ├── app.css                 # Shell layout (flexbox)
-            ├── app.config.ts           # provideHttpClient, provideRouter
+            ├── app.config.ts           # provideHttpClient, provideRouter (Angular 22 functional)
             ├── app.routes.ts           # Route definitions
             │
             ├── components/
@@ -388,7 +388,7 @@ The server reads the following keys from `appsettings.json`, environment variabl
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Node.js 20+](https://nodejs.org/)
-- [Angular CLI 19](https://angular.io/cli) — `npm install -g @angular/cli`
+- [Angular CLI 22](https://angular.io/cli) — `npm install -g @angular/cli`
 - An **Azure subscription** with:
   - Azure OpenAI resource (deployments: `text-embedding-ada-002`, `gpt-4o`)
   - Azure AI Search resource (index configured with vector field `contentVector`, dimension 1536)
@@ -435,7 +435,7 @@ ng serve
 
 ## Component Breakdown
 
-### Frontend — Angular 19
+### Frontend — Angular 22.2
 
 | Component | Responsibility |
 |---|---|
