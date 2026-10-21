@@ -462,9 +462,3 @@ ng serve
 | `EmbeddingService` | Wraps Azure OpenAI `EmbeddingClient`; returns `float[]` vectors |
 | `AzureSearchService` | Wraps Azure AI Search `SearchClient`; upload batches, KNN vector search, chunk deletion |
 | `ChatService` | Wraps Azure OpenAI `ChatClient`; assembles RAG prompt; returns completion text |
-
----
-
-## License
-
-This project is private. All rights reserved © 2026 Sushil Thakur.
