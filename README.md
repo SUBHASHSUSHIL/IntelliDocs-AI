@@ -154,7 +154,7 @@ IntelliDocs-AI/
 
 ## Data & Request Flow
 
-### 1 — Document Upload Flow
+### 1. Document Upload Flow
 
 ```
 User picks file (Browse / Drag-drop)
@@ -191,7 +191,7 @@ POST /api/documents/upload              ← ASP.NET Core
                   • returns 201 Created + DocumentDto to client
 ```
 
-### 2 — Chat Q&A Flow (RAG Pipeline)
+### 2. Chat Q&A Flow (RAG Pipeline)
 
 ```
 User types question → presses Send
@@ -231,7 +231,7 @@ ChatPanelComponent renders:
     • Message timestamp
 ```
 
-### 3 — Document Delete Flow
+### 3. Document Delete Flow
 
 ```
 DELETE /api/documents/{id}
