@@ -130,7 +130,7 @@
 .banner-dismiss:hover { opacity: 1; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-.spin { animation: spin 0.9s linear infinite; }
+.spin svg { animation: spin 0.9s linear infinite; }
 
 /* ── PDF content area ─────────────────────────────────────────────────────── */
 .pdf-content {

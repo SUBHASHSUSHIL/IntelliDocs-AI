@@ -1,6 +1,7 @@
 import { Component, signal, computed, output, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IconComponent } from '../../shared/icon/icon';
 
 export interface SearchHistoryItem {
   id: number;
@@ -16,7 +17,7 @@ export interface HistoryGroup {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IconComponent],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

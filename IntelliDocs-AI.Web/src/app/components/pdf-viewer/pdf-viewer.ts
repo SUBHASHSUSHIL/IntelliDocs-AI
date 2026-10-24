@@ -2,13 +2,14 @@ import { Component, signal, inject, ElementRef, ViewChild, output } from '@angul
 import { CommonModule } from '@angular/common';
 import { DocumentService } from '../../core/services/document.service';
 import { DocumentDto, DocumentUploadUpdate } from '../../core/models/document.model';
+import { IconComponent } from '../../shared/icon/icon';
 
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
 
 @Component({
   selector: 'app-pdf-viewer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './pdf-viewer.html',
   styleUrl: './pdf-viewer.css',
 })

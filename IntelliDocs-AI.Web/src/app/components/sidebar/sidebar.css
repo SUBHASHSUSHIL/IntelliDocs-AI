@@ -453,3 +453,7 @@
     max-width: none;
   }
 }
+
+/* Logo-mark icon brand colors */
+.logo-mark-icon svg circle { fill: #2563eb; stroke: none; }
+.logo-mark-icon svg path { stroke: #fff; }
