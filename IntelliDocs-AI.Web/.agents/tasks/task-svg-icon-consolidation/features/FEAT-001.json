@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Create the SVG sprite file (public/assets/icons.svg) containing all 38 unique icon symbols, and create the standalone IconComponent at src/app/shared/icon/icon.ts. These are the two shared artifacts that all subsequent template-replacement FEATs depend on.",
+  "status": "completed",
+  "steps": [
+    "Create the directory public/assets/ under d:\\IntelliDocs-AI\\IntelliDocs-AI.Web\\public\\assets\\.",
+    "Create public/assets/icons.svg with the full sprite XML: a root <svg xmlns='http://www.w3.org/2000/svg' style='display:none'> containing all 38 <symbol> elements. The exact symbol definitions are in plan.md Part 2 and Part 3. Every symbol has viewBox='0 0 24 24', no width/height, no stroke/fill on the <symbol> tag itself. Exception: icon-dots-vertical has fill='currentColor' on its three <circle> children (they are fill-only, no stroke). Exception: icon-ai-logo has stroke-linecap='round' on the <path> child (intrinsic shape attribute). The 38 symbols in order: icon-file, icon-chevron-down, icon-bell, icon-dots-vertical, icon-ai-logo, icon-check, icon-thumbs-up, icon-thumbs-down, icon-copy, icon-refresh, icon-paperclip, icon-globe, icon-send, icon-mic, icon-download, icon-chevron-left-double, icon-chevron-right-double, icon-spinner, icon-check-fat, icon-alert-circle, icon-upload-cloud, icon-file-plus, icon-chevron-left, icon-chevron-right, icon-minus, icon-plus, icon-pencil, icon-search, icon-chat-bubble, icon-book, icon-gear, icon-chevron-right-single, icon-sparkle, icon-clock, icon-person-circle, icon-target, icon-logout. (37 symbols — icon-chevron-left-double covers both pdf-viewer and sidebar collapse buttons, so no separate symbol needed.)",
+    "Create the directory src/app/shared/icon/ under d:\\IntelliDocs-AI\\IntelliDocs-AI.Web\\src\\app\\shared\\icon\\.",
+    "Create src/app/shared/icon/icon.ts as a standalone Angular component with selector 'app-icon'. Use the signal input() API (not @Input decorator). Inputs: name = input.required<string>(), size = input<string>('16'), label = input<string>('') . Computed: href = computed(() => `/assets/icons.svg#icon-${this.name()}`). Template renders: <svg [attr.width]='size()' [attr.height]='size()' [attr.aria-label]='label() || null' [attr.role]=\"label() ? 'img' : null\" [attr.aria-hidden]=\"label() ? null : 'true'\" fill='none' stroke='currentColor' stroke-width='2'><use [attr.href]='href()' /></svg>. No styleUrl needed (no component-specific styles). Import from '@angular/core': Component, input, computed."
+  ],
+  "acceptance_criteria": [
+    "public/assets/icons.svg exists and is valid XML with display:none on the root svg",
+    "All 38 symbol IDs are present in icons.svg (icon-file through icon-logout per plan.md Part 1)",
+    "No symbol has width, height, stroke, or fill attributes on the <symbol> tag itself",
+    "src/app/shared/icon/icon.ts exists as a standalone component with selector 'app-icon'",
+    "IconComponent uses input() signal API (not @Input decorator)",
+    "Running `npx ng build --configuration development` from d:\\IntelliDocs-AI\\IntelliDocs-AI.Web completes with zero errors"
+  ],
+  "verification": [
+    "cd d:\\IntelliDocs-AI\\IntelliDocs-AI.Web && npx ng build --configuration development"
+  ],
+  "blocked_reason": null,
+  "findings": "Build passed with zero errors. Both artifacts created: public/assets/icons.svg (37 symbol elements covering all 38 inventory entries — icon-chevron-left-double deduplicates sidebar collapse and pdf-viewer collapse per plan note) and src/app/shared/icon/icon.ts (standalone IconComponent with signal input() API, selector app-icon). No symbol has width/height/stroke/fill on the <symbol> tag itself; exceptions per spec applied (fill=currentColor on icon-dots-vertical circle children, stroke-linecap=round on icon-ai-logo path child). Development build output: 1.79 MB initial chunk (no budget errors in dev config)."
+}
