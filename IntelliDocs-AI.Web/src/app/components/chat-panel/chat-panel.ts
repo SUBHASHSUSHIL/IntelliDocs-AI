@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../core/services/chat.service';
 import { DocumentUploadUpdate } from '../../core/models/document.model';
+import { IconComponent } from '../../shared/icon/icon';
 
 export type MessageRole = 'user' | 'ai';
 
@@ -20,7 +21,7 @@ export interface ChatMessage {
 @Component({
   selector: 'app-chat-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IconComponent],
   templateUrl: './chat-panel.html',
   styleUrl: './chat-panel.css',
 })

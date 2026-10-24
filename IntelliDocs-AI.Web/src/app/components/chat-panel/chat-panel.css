@@ -84,6 +84,9 @@
   flex-shrink: 0;
 }
 
+.ai-avatar svg circle { fill: #2563eb; stroke: none; }
+.ai-avatar svg path { stroke: #fff; }
+
 .user-avatar {
   width: 32px;
   height: 32px;

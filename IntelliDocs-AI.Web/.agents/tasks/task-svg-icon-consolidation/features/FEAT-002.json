@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Replace all inline SVGs in top-header.html and chat-panel.html with <app-icon> usages. Add IconComponent to both components' imports arrays. Fix ai-logo colors via CSS. Depends on FEAT-001 (IconComponent and sprite must exist first).",
+  "status": "completed",
+  "steps": [
+    "Edit src/app/components/top-header/top-header.ts: add `import { IconComponent } from '../../shared/icon/icon';` and add IconComponent to the imports array: imports: [CommonModule, IconComponent].",
+    "Edit src/app/components/top-header/top-header.html — replace 4 inline SVGs per plan.md §5.1: (1) doc-options first icon width=16 -> <app-icon name=\"file\" size=\"16\" />, (2) doc-options chevron width=14 -> <app-icon name=\"chevron-down\" size=\"14\" />, (3) notifications button width=18 -> <app-icon name=\"bell\" size=\"18\" />, (4) more-options button width=18 -> <app-icon name=\"dots-vertical\" size=\"18\" />.",
+    "Edit src/app/components/chat-panel/chat-panel.ts: add `import { IconComponent } from '../../shared/icon/icon';` and add IconComponent to the imports array: imports: [CommonModule, FormsModule, IconComponent].",
+    "Edit src/app/components/chat-panel/chat-panel.html — replace 15 inline SVGs per plan.md §5.2: (1) AI avatar in message loop width=18 -> <app-icon name=\"ai-logo\" size=\"18\" />, (2) AI avatar in typing indicator width=18 -> <app-icon name=\"ai-logo\" size=\"18\" />, (3) attachment-icon class width=20 -> <app-icon name=\"file\" size=\"20\" class=\"attachment-icon\" />, (4) attachment-success check width=18 -> <app-icon name=\"check\" size=\"18\" class=\"attachment-success\" label=\"Upload successful\" />, (5) source chip file width=11 -> <app-icon name=\"file\" size=\"11\" />, (6) thumbs-up width=14 -> <app-icon name=\"thumbs-up\" size=\"14\" />, (7) thumbs-down width=14 -> <app-icon name=\"thumbs-down\" size=\"14\" />, (8) copy width=14 -> <app-icon name=\"copy\" size=\"14\" />, (9) regenerate/refresh width=14 -> <app-icon name=\"refresh\" size=\"14\" />, (10) attach-btn paperclip width=16 -> <app-icon name=\"paperclip\" size=\"16\" />, (11) lang globe width=13 -> <app-icon name=\"globe\" size=\"13\" />, (12) lang chevron-down width=11 -> <app-icon name=\"chevron-down\" size=\"11\" />, (13) send width=16 -> <app-icon name=\"send\" size=\"16\" />, (14) voice/mic width=16 -> <app-icon name=\"mic\" size=\"16\" />.",
+    "Edit src/app/components/chat-panel/chat-panel.css — add CSS rules to restore the AI logo blue circle and white cross: `.ai-avatar svg circle { fill: #2563eb; stroke: none; }` and `.ai-avatar svg path { stroke: #fff; }`. These rules target the <svg> rendered inside <app-icon> when it is inside the .ai-avatar wrapper div."
+  ],
+  "acceptance_criteria": [
+    "top-header.ts imports array contains IconComponent",
+    "top-header.html contains zero inline <svg> elements",
+    "chat-panel.ts imports array contains IconComponent",
+    "chat-panel.html contains zero inline <svg> elements",
+    "chat-panel.css contains rules for .ai-avatar svg circle and .ai-avatar svg path",
+    "Running `npx ng build --configuration development` completes with zero errors"
+  ],
+  "verification": [
+    "cd d:\\IntelliDocs-AI\\IntelliDocs-AI.Web && npx ng build --configuration development"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
