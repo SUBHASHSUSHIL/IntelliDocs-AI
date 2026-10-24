@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f7ce9e97985217c9ac966e0a4ad5ad302f5d22f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1765123a5558574a492c601f6f7b735fd9107ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IntelliDocs-AI.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -36,6 +36,16 @@
   flex-shrink: 0;
 }
 
+.app-brand-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-on-dark);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
 .logo-expand-btn {
   padding: 0;
   border-radius: 50%;
@@ -110,9 +120,9 @@
 }
 
 .sidebar.collapsed .sidebar-tool-icon {
-  justify-content: flex-start;
+  justify-content: center;
   width: 40px;
-  padding: 0 0 0 16px;
+  padding: 0;
 }
 
 .sidebar-tool-icon.active {
@@ -217,6 +227,23 @@
   gap: 8px;
   flex: 1;
   overflow: hidden;
+}
+
+.recent-doc-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-dark);
+}
+
+.recent-doc-icon svg {
+  color: var(--text-on-dark);
 }
 
 .recent-doc-text {

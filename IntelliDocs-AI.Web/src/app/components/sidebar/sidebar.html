@@ -1,14 +1,11 @@
 <aside class="sidebar" [class.collapsed]="collapsed()">
   <!-- Logo -->
   <div class="sidebar-logo">
-    @if (collapsed()) {
-      <button class="logo-mark logo-expand-btn" (click)="toggleCollapse()" aria-label="Expand sidebar" title="Expand sidebar">
-        <app-icon name="ai-logo" size="22" class="logo-mark-icon" />
-      </button>
-    } @else {
-      <div class="logo-mark">
-        <app-icon name="ai-logo" size="22" class="logo-mark-icon" />
-      </div>
+    <button class="logo-mark app-brand-btn" type="button" aria-label="IntelliDocs AI home" (click)="toggleCollapse()">
+      <app-icon name="ai-logo" size="18" class="logo-mark-icon" />
+    </button>
+
+    @if (!collapsed()) {
       <span class="logo-text">IntelliDocs AI</span>
     }
   </div>
@@ -61,7 +58,9 @@
         <app-icon name="chevron-left" size="14" />
       </button>
       <div class="recent-doc-info">
-        <app-icon name="file" size="16" style="color:#94a3b8" />
+        <div class="recent-doc-icon" aria-label="Current document">
+          <app-icon name="file" size="16" />
+        </div>
         <div class="recent-doc-text">
           <span class="recent-doc-name">{{ recentDoc().name }}</span>
           <span class="recent-doc-date">{{ recentDoc().date }}</span>
